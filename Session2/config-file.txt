@@ -1,0 +1,17 @@
+configure terminal 
+ip access-list standard snmp-service
+   remark zabbix
+   permit 10.34.176.250
+   permit 10.34.176.251
+   permit 10.34.176.252
+  
+ snmp-server view ro_view iso included
+ snmp-server view rw_view iso included
+
+ snmp-server group ro_group v3 priv read ro_view access snmp-service
+ snmp-server group rw_group v3 priv read rw_view access snmp-service
+
+ snmp-server user zabbix-ro ro_group v3 auth sha P@ssw0rd priv aes 128 P@ssw0rd access snmp-service
+ snmp-server user zabbix-rw rw_group v3 auth sha P@ssw0rd priv aes 128 P@ssw0rd access snmp-service
+
+

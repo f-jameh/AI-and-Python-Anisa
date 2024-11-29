@@ -1,0 +1,69 @@
+
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+hostname R1
+boot-start-marker
+boot-end-marker
+no aaa new-model
+no ip icmp rate-limit unreachable
+no ip domain lookup
+ip domain name test.com
+ip cef
+ipv6 multicast rpf use-bgp
+no ipv6 cef
+multilink bundle-name authenticated
+username root privilege 15 secret 4 .ulbEVPnsJlq5i4ZsZLkNtIq6wWnW9F3bVDtSBT6FjE
+ip tcp synwait-time 5
+interface Loopback1
+ip address 1.1.1.1 255.0.0.0
+interface Ethernet0/0
+no ip address
+shutdown
+duplex auto
+interface GigabitEthernet0/0
+ip address 200.200.200.1 255.255.255.0
+media-type gbic
+speed 1000
+duplex full
+negotiation auto
+interface GigabitEthernet1/0
+ip address 172.16.1.100 255.255.255.0
+negotiation auto
+interface GigabitEthernet2/0
+ip address 200.200.250.1 255.255.255.0
+negotiation auto
+interface GigabitEthernet3/0
+no ip address
+shutdown
+negotiation auto
+router eigrp 1
+network 0.0.0.0
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip access-list standard snmp-service
+remark zabbix
+permit 10.34.176.250
+permit 10.34.176.251
+permit 10.34.176.252
+snmp-server group ro_group v3 priv read ro_view access snmp-service
+snmp-server group rw_group v3 priv read rw_view access snmp-service
+snmp-server view ro_view iso included
+snmp-server view rw_view iso included
+control-plane
+line con 0
+exec-timeout 0 0
+privilege level 15
+logging synchronous
+stopbits 1
+line aux 0
+exec-timeout 0 0
+privilege level 15
+logging synchronous
+stopbits 1
+line vty 0 2
+login local
+line vty 3 4
+login
+end

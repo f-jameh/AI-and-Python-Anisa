@@ -21,22 +21,25 @@ for i in range(len(df)):
 # create a loop for ssh connection:
 for ip in ip_list2:
     devices = {
-        'device_type': 'linux',
-        'host': 'alp1',
-        'username': 'farhad',
-#        'password': '1234',
+        'device_type': 'cisco_ios',
+        'host': ip,
+        'username': 'admin',
+        'password': '1234',
         'port': 22,
         'session_log': 'log.txt',
         'auth_timeout': 60,
-        'use_keys': 'True',
-        'key_file': '/home/farhad/Desktop/AI-and-Python-Anisa/Session4/id_rsa'
+
         }
 
     # ssh to deivece:
     with ConnectHandler(**devices) as ssh:
         print(f'connecting to {ssh.find_prompt()}')
+        output = ssh.config_mode()
+        output += ssh.send_config_from_file('/home/farhad/Desktop/AI-and-Python-Anisa/Session4/conf_file.txt')
+        write_output = ssh.save_config()
+        
 
-#    print(write_output)
+    print(write_output)
 
 
 

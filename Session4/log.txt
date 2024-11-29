@@ -1,0 +1,22 @@
+R4#
+R4#terminal width 511
+R4#terminal length 0
+R4#
+R4#
+R4#
+R4#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R4(config)#
+R4(config)#
+R4(config)#int loopback 100
+R4(config-if)# ip add 3.3.3.3 255.255.255.0
+R4(config-if)#
+R4(config-if)#end
+R4#
+R4#
+R4#
+R4#write mem
+Building configuration...
+[OK]
+R4#
+R4#exit
